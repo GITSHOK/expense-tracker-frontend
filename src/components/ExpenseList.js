@@ -13,14 +13,17 @@ function ExpenseList({refresh}){
 
     },[refresh])    //refresh dependencies mean it reloads evrytime new expenses are added
 
-  async function deleteitem(id){
-    try{
-      await axios.delete(`https://expense-tacker-backend.onrender.com/api/expenses/${id}`);
-
-    }catch(err){
-      console.log("couldnt delete that",err);
-    }
+async function deleteitem(id){
+  try{
+    await axios.delete(`https://expense-tacker-backend.onrender.com/api/expenses/${id}`);
+    // Refresh the list after successful deletion
+    // You might want to trigger a refresh state change here
+    window.location.reload(); // Simple solution, or use your refresh prop
+  } catch(err){
+    console.log("couldnt delete that",err);
+    alert("Failed to delete expense. Please try again.");
   }
+}
 return (
   <div className="expense-list">
     <h2>Expense History</h2>
