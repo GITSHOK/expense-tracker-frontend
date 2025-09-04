@@ -9,6 +9,7 @@ function App() {
   const handleExpenseAdded = () => {
     setRefresh(!refresh); // toggle refresh to reload expenses
   };
+  console.log("lets see");
 
   return (
     <div>
