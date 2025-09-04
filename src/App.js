@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div>
-      <h1>Expense Trr</h1>
+      <h1>Expense Tracker</h1>
       <ExpenseForm onExpenseAdded={handleExpenseAdded} />
       <ExpenseList refresh={refresh} />
       <Analytics refresh={refresh} />

@@ -78,23 +78,36 @@ return (
       
       <div className="form-group">
         <label>Category</label>
-        <input
-          type="text"
-          placeholder="Enter category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required
-        />
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Other">Other</option>
+          </select>
       </div>
       
       <div className="form-group">
-        <label>Payment Method</label>
-        <input
-          type="text"
-          placeholder="Enter payment method"
-          value={payment_method}
-          onChange={(e) => setPayment_method(e.target.value)}
-        />
+          <label>Payment Method</label>
+            <select
+              value={payment_method}
+              onChange={(e) => setPayment_method(e.target.value)}
+            >
+              <option value="">Select Payment Method</option>
+              <option value="Cash">Cash</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Debit Card">Debit Card</option>
+              <option value="UPI">UPI</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Other">Other</option>
+            </select>
       </div>
       
       <button type="submit" className="submit-btn">Add Expense</button>
