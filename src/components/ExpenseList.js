@@ -13,7 +13,14 @@ function ExpenseList({refresh}){
 
     },[refresh])    //refresh dependencies mean it reloads evrytime new expenses are added
 
+  async function deleteitem(id){
+    try{
+      await axios.delete(`https://expense-tacker-backend.onrender.com/api/expenses/${id}`);
 
+    }catch(err){
+      console.log("couldnt delete that",err);
+    }
+  }
 return (
   <div className="expense-list">
     <h2>Expense History</h2>
@@ -25,6 +32,7 @@ return (
           <th>Payment Method</th>
           <th>Amount</th>
           <th>Date</th>
+          <th>DELETE</th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +43,7 @@ return (
             <td>{expense.payment_method}</td>
             <td>${expense.amount}</td>
             <td>{new Date(expense.date).toISOString().split("T")[0]}</td>
+            <td><button onClick={() => deleteitem(expense.id)}>DELETE</button></td>
           </tr>
         ))}
       </tbody>

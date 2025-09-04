@@ -165,6 +165,8 @@ body {
   position: relative;
   height: 400px;
   width: 100%;
+  border: 2px solid black;
+  border-radius: 20px;
 }
 
 /* Responsive design */
