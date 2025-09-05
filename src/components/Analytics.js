@@ -36,6 +36,11 @@ function Analytics({ refresh }) {
       .catch(err => console.log(err));
   }, [refresh]);
 
+
+
+
+
+
   // Group expenses by category and sum amounts
   const categoryMap = {};
   datao.forEach(exp => {
@@ -155,6 +160,46 @@ function Analytics({ refresh }) {
     }
   };
 
+
+  // Group expenses by payment method and sum amounts
+const paymentMethodMap = {};
+datao.forEach(exp => {
+  if (paymentMethodMap[exp.payment_method]) {
+    paymentMethodMap[exp.payment_method] += parseFloat(exp.amount);
+  } else {
+    paymentMethodMap[exp.payment_method] = parseFloat(exp.amount);
+  }
+});
+
+// Pie Chart Data (Payment Method)
+const paymentPieData = {
+  labels: Object.keys(paymentMethodMap),
+  datasets: [
+    {
+      data: Object.values(paymentMethodMap),
+      backgroundColor: [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+        '#9966FF', '#FF9F40', '#8AC926', '#FF595E'
+      ],
+      borderColor: '#ffffff',
+      borderWidth: 2
+    }
+  ]
+};
+
+const paymentPieOptions = {
+  responsive: true,
+  plugins: {
+    legend: { position: 'right' },
+    title: {
+      display: true,
+      text: 'Expenses by Payment Method'
+    }
+  }
+};
+
+
+
   return (
     <div className="analytics-section">
       <h2>Expense Analytics</h2>
@@ -174,6 +219,12 @@ function Analytics({ refresh }) {
         <div className="chart-container full-width">
           <Line data={lineData} options={lineOptions} />
         </div>
+
+        {/* Payment Method Pie Chart */}
+<div className="chart-container">
+  <Pie data={paymentPieData} options={paymentPieOptions} />
+</div>
+
       </div>
     </div>
   );
