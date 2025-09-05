@@ -6,6 +6,10 @@ function ExpenseList({ refresh }) {
   const [expenses, setExpenses] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({});
+  
+  // Define your categories and payment methods
+  const categories = ["Food", "Transport", "Entertainment", "Utilities", "Shopping", "Healthcare", "Other"];
+  const paymentMethods = ["Cash", "Credit Card", "Debit Card", "PayPal", "Bank Transfer", "Other"];
 
   // Fetch data
   useEffect(() => {
@@ -35,7 +39,7 @@ function ExpenseList({ refresh }) {
       category: expense.category,
       payment_method: expense.payment_method,
       amount: expense.amount,
-      date: expense.date,
+      date: expense.date.split("T")[0], // Format date for input field
     });
   }
 
@@ -91,22 +95,34 @@ function ExpenseList({ refresh }) {
               </td>
               <td>
                 {editingId === expense.id ? (
-                  <input
+                  <select
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                  />
+                  >
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   expense.category
                 )}
               </td>
               <td>
                 {editingId === expense.id ? (
-                  <input
+                  <select
                     name="payment_method"
                     value={formData.payment_method}
                     onChange={handleChange}
-                  />
+                  >
+                    {paymentMethods.map((method) => (
+                      <option key={method} value={method}>
+                        {method}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   expense.payment_method
                 )}
@@ -128,7 +144,7 @@ function ExpenseList({ refresh }) {
                   <input
                     name="date"
                     type="date"
-                    value={formData.date.split("T")[0]}
+                    value={formData.date}
                     onChange={handleChange}
                   />
                 ) : (
